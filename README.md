@@ -1,3 +1,5 @@
+
+
 <div align="center">
 
 # 🗑️ Bindicator
@@ -21,21 +23,7 @@ Turn a normal Home Assistant WLED light into a compact, animated bin-status card
 
 ## 🎬 Demo
 
-<!--
-PLAYABLE GITHUB VIDEO:
-Replace the line below with the github.com/user-attachments/assets/... URL
-created by dragging bindicator-demo.mov into the GitHub README editor.
-
-GitHub renders that attachment URL as an inline playable video player.
--->
-
-**▶ Demo video**
-
-https://github.com/deanfourie1/bindicator-integration/blob/main/assets/bindicator-demo.mov
-
-> **For an inline playable video:** edit this README on GitHub, drag `assets/bindicator-demo.mov`
-> into the editor, wait for GitHub to upload it, then replace the video link above with the generated
-> `https://github.com/user-attachments/assets/...` URL. GitHub will render it as a native video player.
+<img width="800" height="443" alt="bindicator-demo-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/361e3772-f27a-41b0-b6c8-7e8e4f003c1f" />
 
 ---
 

@@ -50,7 +50,7 @@ Select the WLED light you want Bindicator to use.
 For example:
 
 ```text
-light.wled_camper
+light.wled_house
 ```
 
 Bindicator automatically creates an effect entity such as:
@@ -67,7 +67,9 @@ Edit a Home Assistant dashboard:
 
 **Add card → Bindicator Card**
 
-Choose your WLED light and configure the card through the visual editor.
+Choose your WLED light and the create WLED effects entity created when adding the integration.
+
+When adding the device in Devices & Services, this creates a helper for your WLED light entity to change effects easily.
 
 ---
 

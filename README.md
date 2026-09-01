@@ -56,7 +56,7 @@ light.wled_house
 Bindicator automatically creates an effect entity such as:
 
 ```text
-select.bindicator_wled_camper_effect
+select.bindicator_wled_house_effect
 ```
 
 No manual Template YAML is required.
@@ -111,13 +111,13 @@ When Bindicator is configured for a WLED light, it creates a dedicated effect en
 Example:
 
 ```text
-light.wled_camper
+light.wled_house
 ```
 
 becomes:
 
 ```text
-select.bindicator_wled_camper_effect
+select.bindicator_wled_house_effect
 ```
 
 The card detects this entity automatically.
@@ -202,7 +202,7 @@ Normally the visual editor is all you need, but the card can also be configured 
 
 ```yaml
 type: custom:bindicator-card
-entity: light.wled_camper
+entity: light.wled_house
 name: Bindicator
 show_header: true
 theme_mode: bindicator

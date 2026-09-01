@@ -58,3 +58,10 @@ The frontend loader now registers `bindicator-card.js` as a real Lovelace
 The card URL is versioned as `/bindicator/bindicator-card.js?v=0.3.1` so
 upgrades do not keep an old cached copy. YAML-mode dashboards still fall back
 to Home Assistant's extra-JavaScript loader.
+
+
+## v0.3.2
+
+- Fixed the Bindicator card tile getting stuck on a loading spinner in Home Assistant's **Add card** picker.
+- Disabled the unsupported live picker preview path; the card now opens the normal visual editor when selected.
+- `getStubConfig()` now uses an available light entity when Home Assistant supplies state context.

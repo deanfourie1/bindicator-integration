@@ -5,7 +5,7 @@
  * License: MIT
  */
 
-const BINDICATOR_VERSION = "0.3.1";
+const BINDICATOR_VERSION = "0.3.2";
 
 const DEFAULT_CONFIG = {
   name: "Bindicator",
@@ -47,20 +47,14 @@ class BindicatorCard extends HTMLElement {
     return document.createElement("bindicator-card-editor");
   }
 
-  static getStubConfig() {
+  static getStubConfig(hass) {
+    const firstLight = hass
+      ? Object.keys(hass.states || {}).find((entityId) => entityId.startsWith("light."))
+      : undefined;
+
     return {
-      name: "Bindicator",
-      show_header: true,
-      entity: "",
-      effect_entity: "",
-      speed_entity: "",
-      size: "medium",
-      show_controls: true,
-      show_brightness: true,
-      show_color: true,
-      show_effect: true,
-      animations: true,
-      controls_position: "right",
+      ...DEFAULT_CONFIG,
+      entity: firstLight || "",
     };
   }
 
@@ -1152,7 +1146,7 @@ if (!window.customCards.some(card => card.type === "bindicator-card")) {
     type: "bindicator-card",
     name: "Bindicator Card",
     description: "Animated WLED wheelie-bin indicator card with a visual editor.",
-    preview: true,
+    preview: false,
     documentationURL: "https://github.com/deanfourie1/bindicator-card",
   });
 }

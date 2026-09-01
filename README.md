@@ -24,8 +24,17 @@ Turn a normal Home Assistant WLED light into a compact, animated bin-status card
 ## 🎬 Demo
 
 <img width="800" height="443" alt="bindicator-demo-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/361e3772-f27a-41b0-b6c8-7e8e4f003c1f" />
+---
 
-More information and purchase can be found at https://deanfourie.me/product/bindicator/
+# 🗑️ Getting a Bindicator
+
+Bindicator can be purchased at https://deanfourie.me/product/bindicator/
+
+Article post can be found at https://deanfourie.me/bindicator/
+
+There is a PCB version available which gives 6 5050SMD WS2182B LEDs for better LED effects.
+
+<img width="1024" height="576" alt="image" src="https://github.com/user-attachments/assets/a2df760a-1470-4bab-952a-bd21f8523ba6" />
 
 ---
 

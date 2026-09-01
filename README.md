@@ -32,7 +32,7 @@ Bindicator can be purchased at https://deanfourie.me/product/bindicator/
 
 For those who want to build their own, article post can be found at https://deanfourie.me/bindicator/
 
-There is a PCB version available which gives 6 5050SMD WS2182B LEDs for better LED effects.
+There is a PCB version available which gives 6 5050SMD WS2182B LEDs for better LED effects and built in ESP32 with I2C breakout for custom additions.
 
 <img width="1024" height="576" alt="image" src="https://github.com/user-attachments/assets/a2df760a-1470-4bab-952a-bd21f8523ba6" />
 

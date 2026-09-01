@@ -5,7 +5,7 @@
  * License: MIT
  */
 
-const BINDICATOR_VERSION = "0.3.3";
+const BINDICATOR_VERSION = "0.3.4";
 
 const DEFAULT_CONFIG = {
   name: "Bindicator",

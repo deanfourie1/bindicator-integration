@@ -73,3 +73,10 @@ to Home Assistant's extra-JavaScript loader.
 - Removing the **last** Bindicator config entry now removes `/bindicator/bindicator-card.js?...` from **Settings → Dashboards → Resources**.
 - Removing one Bindicator/WLED entry does **not** remove the shared frontend resource while other Bindicator entries still exist.
 - The backend entities are unloaded before the shared frontend resource is cleaned up.
+
+
+## v0.3.4
+
+- Changed Home Assistant `integration_type` from `helper` to `device`.
+- Bindicator should now appear as a normal integration under **Settings → Devices & services → Integrations** after it is configured.
+- Keeps the unified frontend card, automatic WLED effect select, Lovelace resource registration, and resource cleanup behavior from previous versions.

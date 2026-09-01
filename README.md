@@ -27,26 +27,6 @@ Turn a normal Home Assistant WLED light into a compact, animated bin-status card
 
 ---
 
-## ✨ What Bindicator Does
-
-| Feature | Support |
-|---|:---:|
-| WLED light control | ✅ |
-| Brightness control | ✅ |
-| Direct colour control | ✅ |
-| WLED effect selection | ✅ |
-| Animated bin glow | ✅ |
-| WLED-speed-aware animations | ✅ |
-| Tap bin to toggle power | ✅ |
-| Home Assistant visual card editor | ✅ |
-| Automatic effect `select` entity | ✅ |
-| Multiple Bindicator instances | ✅ |
-| HACS installation | ✅ |
-| Separate dashboard repository required | ❌ |
-| Manual Template YAML required | ❌ |
-
----
-
 ## 🚀 Installation
 
 ### 1. Install with HACS

@@ -1,7 +1,7 @@
 {
   "domain": "bindicator",
   "name": "Bindicator",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "config_flow": true,
   "documentation": "https://github.com/deanfourie1/bindicator-card",
   "issue_tracker": "https://github.com/deanfourie1/bindicator-card/issues",

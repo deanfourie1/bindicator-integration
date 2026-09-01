@@ -12,7 +12,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.event import async_call_later
 
-from .const import CARD_PATH, CARD_URL, PLATFORMS
+from .const import CARD_PATH, CARD_URL, DOMAIN, PLATFORMS
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -21,6 +21,21 @@ _FRONTEND_STATIC_REGISTERED = "bindicator_frontend_static_registered"
 _FRONTEND_RESOURCE_REGISTERED = "bindicator_frontend_resource_registered"
 _RESOURCE_RETRY_COUNT = "bindicator_frontend_resource_retry_count"
 _MAX_RESOURCE_RETRIES = 12
+
+
+def _get_lovelace_resources(hass: HomeAssistant):
+    """Return the Lovelace resource collection when available."""
+    lovelace: Any = hass.data.get("lovelace")
+    if lovelace is None:
+        return None
+
+    if hasattr(lovelace, "resources"):
+        return lovelace.resources
+
+    if isinstance(lovelace, dict):
+        return lovelace.get("resources")
+
+    return None
 
 
 async def _async_register_static_frontend(hass: HomeAssistant) -> bool:
@@ -44,19 +59,11 @@ async def _async_register_lovelace_resource(hass: HomeAssistant) -> bool:
     if hass.data.get(_FRONTEND_RESOURCE_REGISTERED):
         return True
 
-    lovelace: Any = hass.data.get("lovelace")
-    if lovelace is None:
+    resources = _get_lovelace_resources(hass)
+    if resources is None:
         return False
 
-    resources = (
-        lovelace.resources
-        if hasattr(lovelace, "resources")
-        else lovelace.get("resources")
-        if isinstance(lovelace, dict)
-        else None
-    )
-
-    if resources is not None and hasattr(resources, "async_get_info"):
+    if hasattr(resources, "async_get_info"):
         await resources.async_get_info()
 
         existing = None
@@ -89,9 +96,54 @@ async def _async_register_lovelace_resource(hass: HomeAssistant) -> bool:
         hass.data[_FRONTEND_RESOURCE_REGISTERED] = True
         return True
 
+    # YAML-mode dashboards do not have mutable resource storage.
     add_extra_js_url(hass, CARD_URL)
     hass.data[_FRONTEND_RESOURCE_REGISTERED] = True
     return True
+
+
+async def _async_remove_lovelace_resource(hass: HomeAssistant) -> None:
+    """Remove the Bindicator Lovelace resource from storage-mode dashboards."""
+    resources = _get_lovelace_resources(hass)
+    if resources is None or not hasattr(resources, "async_get_info"):
+        # There is no mutable storage resource collection to clean up.
+        hass.data.pop(_FRONTEND_RESOURCE_REGISTERED, None)
+        return
+
+    await resources.async_get_info()
+
+    to_remove = [
+        item
+        for item in resources.async_items()
+        if str(item.get("url", "")).startswith(CARD_PATH)
+    ]
+
+    for item in to_remove:
+        if hasattr(resources, "async_delete_item"):
+            await resources.async_delete_item(item["id"])
+            _LOGGER.debug(
+                "Removed Bindicator Lovelace resource: %s",
+                item.get("url", CARD_PATH),
+            )
+        else:
+            _LOGGER.warning(
+                "Bindicator resource %s could not be removed automatically "
+                "because this Home Assistant resource collection does not "
+                "support deletion",
+                item.get("url", CARD_PATH),
+            )
+
+    hass.data.pop(_FRONTEND_RESOURCE_REGISTERED, None)
+
+
+def _other_bindicator_entries_exist(
+    hass: HomeAssistant, unloading_entry: ConfigEntry
+) -> bool:
+    """Return True when another Bindicator config entry remains loaded/configured."""
+    return any(
+        entry.entry_id != unloading_entry.entry_id
+        for entry in hass.config_entries.async_entries(DOMAIN)
+    )
 
 
 @callback
@@ -151,4 +203,23 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Unload a Bindicator config entry."""
-    return await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
+    unloaded = await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
+
+    if unloaded and not _other_bindicator_entries_exist(hass, entry):
+        try:
+            await _async_remove_lovelace_resource(hass)
+        except Exception:
+            _LOGGER.exception("Failed to remove Bindicator Lovelace resource")
+
+    return unloaded
+
+
+async def async_remove_entry(hass: HomeAssistant, entry: ConfigEntry) -> None:
+    """Clean up shared frontend resources when the last Bindicator entry is removed."""
+    if not _other_bindicator_entries_exist(hass, entry):
+        try:
+            await _async_remove_lovelace_resource(hass)
+        except Exception:
+            _LOGGER.exception(
+                "Failed to remove Bindicator Lovelace resource while deleting entry"
+            )

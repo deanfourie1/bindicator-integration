@@ -65,3 +65,11 @@ to Home Assistant's extra-JavaScript loader.
 - Fixed the Bindicator card tile getting stuck on a loading spinner in Home Assistant's **Add card** picker.
 - Disabled the unsupported live picker preview path; the card now opens the normal visual editor when selected.
 - `getStubConfig()` now uses an available light entity when Home Assistant supplies state context.
+
+
+## v0.3.3
+
+- Added automatic cleanup of the Bindicator Lovelace resource.
+- Removing the **last** Bindicator config entry now removes `/bindicator/bindicator-card.js?...` from **Settings → Dashboards → Resources**.
+- Removing one Bindicator/WLED entry does **not** remove the shared frontend resource while other Bindicator entries still exist.
+- The backend entities are unloaded before the shared frontend resource is cleaned up.

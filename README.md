@@ -73,42 +73,6 @@ When adding the device in Devices & Services, this creates a helper for your WLE
 
 ---
 
-## 🧠 How It Works
-
-```text
-┌─────────────────────┐
-│        WLED         │
-└──────────┬──────────┘
-           │
-           ▼
-┌─────────────────────┐
-│ Home Assistant WLED │
-│     Integration     │
-└──────────┬──────────┘
-           │
-           │ light.wled_...
-           ▼
-┌─────────────────────────────┐
-│        Bindicator           │
-│                             │
-│  ┌───────────────────────┐  │
-│  │ Automatic Effect      │  │
-│  │ Select Entity         │  │
-│  └───────────────────────┘  │
-│                             │
-│  ┌───────────────────────┐  │
-│  │ Bindicator Dashboard  │  │
-│  │ Card + Visual Editor  │  │
-│  └───────────────────────┘  │
-└─────────────────────────────┘
-```
-
-Bindicator uses the normal Home Assistant WLED light entity for power, brightness and colour.
-
-The integration also creates a real Home Assistant `select` entity for WLED effects so the dashboard card can reliably change effects without requiring a manually configured template helper.
-
----
-
 ## 🎨 Dashboard Card
 
 The card provides a compact bin display with controls alongside it.

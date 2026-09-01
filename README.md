@@ -48,3 +48,13 @@ The current card build keeps the existing configurable image defaults:
 - `/local/images/bin_glow_mask.png`
 
 These can still be changed in the visual editor. Bundling the bin artwork inside the integration can be added as the next packaging step.
+
+
+## v0.3.1
+
+The frontend loader now registers `bindicator-card.js` as a real Lovelace
+**module resource** when Home Assistant is using storage-mode dashboards.
+
+The card URL is versioned as `/bindicator/bindicator-card.js?v=0.3.1` so
+upgrades do not keep an old cached copy. YAML-mode dashboards still fall back
+to Home Assistant's extra-JavaScript loader.

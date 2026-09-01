@@ -1,0 +1,23 @@
+{
+  "title": "Bindicator",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Set up Bindicator",
+        "description": "Choose the WLED light that Bindicator should control.",
+        "data": {
+          "source_light": "WLED light"
+        },
+        "data_description": {
+          "source_light": "Select a light entity that exposes an effect list."
+        }
+      }
+    },
+    "error": {
+      "no_effects": "The selected light does not expose any effects."
+    },
+    "abort": {
+      "already_configured": "This light is already configured in Bindicator."
+    }
+  }
+}
